@@ -61,7 +61,18 @@ public class ChatServer extends WebSocketServer {
 		BufferedReader sysin = new BufferedReader( new InputStreamReader( System.in ) );
 		while ( true ) {
 			String in = sysin.readLine();
-			s.sendToAll( in );
+            if (!in.equals("")){
+                if (in.equals("o")) {
+                    s.sendToAll( "open_camera" );
+                } else if (in.equals("s")) {
+                    s.sendToAll( "start" );
+                } else if (in.equals("t")) {
+                    s.sendToAll( "stop" );
+                } else if (in.equals("h")) {
+                    s.sendToAll( "home" );
+                }
+            }
+
 			if( in.equals( "exit" ) ) {
 				s.stop();
 				break;
@@ -72,7 +83,8 @@ public class ChatServer extends WebSocketServer {
 			}
 		}
 	}
-	@Override
+
+    @Override
 	public void onError( WebSocket conn, Exception ex ) {
 		ex.printStackTrace();
 		if( conn != null ) {
