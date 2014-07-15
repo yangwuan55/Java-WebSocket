@@ -62,14 +62,17 @@ public class ChatServer extends WebSocketServer {
 		while ( true ) {
 			String in = sysin.readLine();
             if (!in.equals("")){
+                s.sendToAll("wake");
                 if (in.equals("o")) {
                     s.sendToAll( "open_camera" );
                 } else if (in.equals("s")) {
-                    s.sendToAll( "start" );
+                    s.sendToAll( "start_" + (System.currentTimeMillis() + 5000) );
                 } else if (in.equals("t")) {
-                    s.sendToAll( "stop" );
+                    s.sendToAll( "stop_" + (System.currentTimeMillis() + 5000) );
                 } else if (in.equals("h")) {
                     s.sendToAll( "home" );
+                } else if (in.equals("w")) {
+                    s.sendToAll("wake");
                 }
             }
 
